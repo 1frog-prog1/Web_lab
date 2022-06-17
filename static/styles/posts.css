@@ -1,0 +1,35 @@
+.one-article {
+    background-color: white;
+    padding: 15px 25px 20px 30px;
+    margin-bottom: 35px;
+    border-radius: 8px;
+    box-shadow: 0px 1px #CECECE;
+}
+
+.post-header {
+    font-size: 27px;
+    margin-bottom: 7px;
+}
+
+.post-author {
+    font-size: 16px;
+    color: grey;
+    font-weight: lighter;
+    margin-bottom: 7px;
+}
+
+.post-text {
+    font-size: 19px;
+    margin: 10px 0px;
+}
+
+
+.read {
+    font-size: 19px;
+    text-decoration: underline;
+    color: #562A6E;
+}
+
+.read:hover {
+    color: #854FA3;
+}

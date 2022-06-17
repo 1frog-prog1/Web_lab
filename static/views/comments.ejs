@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Комментарии</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/comments.css">
+    <link rel="stylesheet" href="/css/posts.css">
+</head>
+<body>
+<%- include('header'); %>
+<div class="wrapper">
+    <h1 class="comments-header">Комментарии</h1>
+    <% if (comments.length === 0) { %>
+    <div class="one-article">
+        <p class="comment-text">Напишите комментарий первым!</p>
+    </div>
+    <% } else { %>
+      <% comments.forEach( (comment) => { %>
+        <div class="one-article">
+            <span class="post-author"> <%= comment.name %> </span>
+            <p class="comment-text"> <%= comment.text %> </p>
+        </div>
+          <% }) %>
+    <% } %>
+    <div class="one-article">
+        <h2 class="comments-header">Оставье комментарий</h2>
+        <form action="" method="post">
+            <input type="hidden" name="type" value="comment">
+            <input class="string-input" required type="text" name="nickname" placeholder="Никнейм">
+            <br>
+            <textarea class="textarea-input" required name="mes" placeholder="Напишите что-нибудь"></textarea>
+            <br>
+            <input class="submit-button" required type="submit" name="send" value="Отправить">
+        </form>
+    </div>
+</div>
+</body>
+</html>

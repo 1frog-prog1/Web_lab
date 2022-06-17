@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Все публикации</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/posts.css">
+</head>
+<body>
+<%- include('header') -%>
+<div class="wrapper">
+
+    <% for (let i = 0; i < posts.length; i++) { %>
+    <div class="one-article">
+        <article>
+            <h2 class="post-header"><%= posts[i].header %></h2>
+            <span class="post-author">Автор: <%= posts[i].name %> </span>
+            <p class="post-text"> <%= posts[i].text.substr(0, 500) %>... </p>
+            <a class="read" href=<%= '/posts/' + i %> >Читать далее</a>
+        </article>
+    </div>
+    <% } %>
+</div>
+</body>
+</html>

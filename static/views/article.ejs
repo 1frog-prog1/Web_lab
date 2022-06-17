@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title><%= post_header %></title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/posts.css">
+    <link rel="stylesheet" href="/css/comments.css">
+</head>
+<body>
+<%- include('header'); %>
+<div class="wrapper">
+    <div class="one-article">
+        <h1 class="post-header"><%= post_header %></h1>
+        <span class="post-author">Автор: <%= author %></span>
+        <p class="post-text"><%= post_text %></p>
+        <a class="read" href=<%= comment_url %>>Перейти к комментариям</a>
+    </div>
+        <div class="one-article">
+            <h2 class="comments-header">Комментарии</h2>
+            <div>
+                <% comments.forEach( (comment) => { %>
+                    <span class="comment-author">Автор: <%= comment.name %> </span>
+                    <p class="comment-text"> <%= comment.text %> </p>
+                <% }) %>
+            </div>
+        </div>
+
+
+</div>
+</body>
+</html>

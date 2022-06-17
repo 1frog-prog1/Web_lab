@@ -1,0 +1,44 @@
+.comment-text {
+    font-size: 17px;
+    margin: 10px 0px 10px 20px;
+    color: #525252;
+}
+
+.comments-header {
+    font-size: 24px;
+    margin-bottom: 7px;
+    color: #2e2e2e;
+}
+
+.comment-author {
+    font-size: 14px;
+    color: grey;
+    font-weight: lighter;
+    margin-bottom: 4px;
+}
+
+.string-input {
+    background-color: white;
+    border-radius: 7px;
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+    margin: 7px 0px;
+    font-size: 15px;
+}
+
+.textarea-input {
+    background-color: white;
+    border-radius: 7px;
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+    font-size: 15px;
+}
+
+.submit-button {
+    background-color: #a8a5a5;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 7px 15px;
+    margin: 7px 0px;
+    color: #404040;
+}
