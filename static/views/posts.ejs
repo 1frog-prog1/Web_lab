@@ -16,7 +16,7 @@
             <h2 class="post-header"><%= posts[i].header %></h2>
             <span class="post-author">Автор: <%= posts[i].name %> </span>
             <p class="post-text"> <%= posts[i].text.substr(0, 500) %>... </p>
-            <a class="read" href=<%= '/posts/' + i %> >Читать далее</a>
+            <a class="read" href=<%= '/posts/' + posts[i]._id %> >Читать далее</a>
         </article>
     </div>
     <% } %>

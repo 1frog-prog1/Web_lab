@@ -5,11 +5,21 @@ const bodyParser = require('body-parser')
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/JustForTest');
+mongoose.connect('mongodb://localhost:27018/RitaBlog', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
-let Nums = mongoose.model('Nums', new mongoose.Schema({
-    num: Number
-}));
+let blogs = mongoose.model('blogs', new mongoose.Schema({
+    _id: String,
+    header: String,
+    name: String,
+    text: String,
+    comments: [{
+        name: String,
+        text: String
+    }]
+}))
 
 const app = express();
 const PORT = 3000;
@@ -22,55 +32,57 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'static', 'views'));
 app.use('/css',express.static(path.join(__dirname, 'static/styles/')));
 
-let post_list = JSON.parse(fs.readFileSync(path.join(__dirname, 'sources', 'posts.json')))
-
 
 app.get('/', (req, res) => {
-    Nums.find({}).then(num => {
-        console.log(num);
-    })
     res.redirect('/posts');
 })
 
-app.get('/posts', (req, res) => {
+app.get('/posts', async (req, res) => {
+    let result = await blogs.find().exec();
     res.render('posts', {
-        posts: post_list,
+        posts: result,
     })
 })
 
-app.get('/posts/:id', (req, res) => {
-    let id = req.params.id;
-    if (id >= post_list.length)
-        res.redirect('/error');
-    else {
-        let comment_url = '/posts/' + id + '/comments';
+app.get('/posts/:id', async (req, res) => {
 
-        res.render('article', {
-            post_header: post_list[id].header,
-            author: post_list[id].name,
-            post_text: post_list[id].text,
-            comments: post_list[id].comments,
-            comment_url: comment_url
-        })
-    }
+    let result = await blogs.findById({_id: req.params.id}).exec();
+    if(result == null)
+        res.redirect('/error');
+
+    let comment_url = '/posts/' + req.params.id + '/comments';
+
+    res.render('article', {
+        post_header: result.header,
+        author: result.name,
+        post_text: result.text,
+        comments: result.comments,
+        comment_url: comment_url
+    })
 })
 
-app.get('/posts/:id/comments', (req, res) => {
-    let id = req.params.id;
-    if (id >= post_list.length)
+app.get('/posts/:id/comments', async (req, res) => {
+    let result = await blogs.findById({ _id: req.params.id }).exec();
+
+    if(result == null)
         res.redirect('/error');
-    else {
-        res.render('comments', {
-            comments: post_list[id].comments
-        });
-    }
+
+    res.render('comments', {
+        comments: result.comments
+    });
 })
 
-app.post('/posts/:id/comments', (req, res) => {
+app.post('/posts/:id/comments', async (req, res) => {
     let id = req.params.id;
     let name = req.body.nickname;
     let text = req.body.mes;
     //возможность добавлять комментарии
+
+    await blogs.findOneAndUpdate({_id: req.params.id}, {$push: { comments: {
+                name: req.body.nickname,
+                text: req.body.mes
+            }}});
+
     res.redirect(`/posts/${id}/comments`);
 })
 
